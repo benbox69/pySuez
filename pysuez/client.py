@@ -89,7 +89,6 @@ class SuezClient():
         # Get the URL after possible redirect
         m = re.match('https?://([^/]+)/',response.url)
         self._hostname = m.group(1)
-        print(self._hostname)
         
         if not 'eZSESSID' in self._session.cookies.get_dict():
             raise PySuezError("Login error: Please check your username/password.")
@@ -109,8 +108,8 @@ class SuezClient():
         yesterday_year = yesterday.strftime('%Y')
         yesterday_month = yesterday.strftime('%m')
         yesterday_day = yesterday.strftime('%d')
-        #url = BASE_URI+API_ENDPOINT_DATA
-        url = "https://" + self._hostname + API_ENDPOINT_DATA
+        url = BASE_URI+API_ENDPOINT_DATA
+        #url = "https://" + self._hostname + API_ENDPOINT_DATA
         url += '{}/{}/{}'.format(
             yesterday_year,
             yesterday_month, self._counter_id
