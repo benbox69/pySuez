@@ -55,7 +55,8 @@ class SuezClient():
 
         phrase = re.compile('csrfToken\\\\u0022\\\\u003A\\\\u0022(.*)\\\\u0022,\\\\u0022targetUrl')
         result = phrase.search(response.content.decode('utf-8'))
-        self._token = result.group(1)
+        #self._token = result.group(1)
+        self._token = result.group(1).encode().decode('unicode_escape')
         self._headers = headers
 
     def _get_cookie(self):
@@ -86,7 +87,8 @@ class SuezClient():
 
         # Get the URL after possible redirect
         m = re.match('https?://([^/]+)/',response.url)
-        self._hostname = m.group(1)
+        #self._hostname = m.group(1)
+        self._hostname = re.match('https?://([^/]+)/',response.url).group(1)
 
         if not 'eZSESSID' in self._session.cookies.get_dict():
             raise PySuezError("Login error: Please check your username/password.")
@@ -106,7 +108,8 @@ class SuezClient():
         yesterday_year = yesterday.strftime('%Y')
         yesterday_month = yesterday.strftime('%m')
         yesterday_day = yesterday.strftime('%d')
-        url = BASE_URI+API_ENDPOINT_DATA
+        #url = BASE_URI+API_ENDPOINT_DATA
+        url = "https://" + self._hostname + API_ENDPOINT_DATA
         url += '{}/{}/{}'.format(
             yesterday_year,
             yesterday_month, self._counter_id
