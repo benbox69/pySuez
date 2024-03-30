@@ -26,6 +26,7 @@ class SuezClient():
         self._headers = {}
         self.data = {}
         self.attributes = {}
+        self._hostname = ''
         self.success = False
         self._session = session
         self._timeout = timeout
