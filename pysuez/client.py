@@ -88,9 +88,8 @@ class SuezClient():
 
         # Get the URL after possible redirect
         m = re.match('https?://([^/]+)/',response.url)
-        #self._hostname = m.group(1)
-        self._hostname = re.match('https?://([^/]+)/',response.url).group(1)
-
+        self._hostname = m.group(1)
+        
         if not 'eZSESSID' in self._session.cookies.get_dict():
             raise PySuezError("Login error: Please check your username/password.")
         
